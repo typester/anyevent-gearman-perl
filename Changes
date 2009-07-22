@@ -1,0 +1,4 @@
+Revision history for Perl extension AnyEvent::Gearman::Client
+
+  0.01  Sat Jul 18 12:15:29 2009
+        - original version
