@@ -44,6 +44,8 @@ sub add_task {
             $retry,
         );
     })->();
+
+    $task;
 }
 
 __PACKAGE__->meta->make_immutable;
