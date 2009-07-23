@@ -68,6 +68,9 @@ AnyEvent::Gearman::Client - Module abstract (<= 44 characters) goes here
         on_complete => sub {
             $cv->send( $_[1] );
         },
+        on_fail => sub {
+            $cv->send;
+        },
     );
     
     my $result = $cv->recv;
