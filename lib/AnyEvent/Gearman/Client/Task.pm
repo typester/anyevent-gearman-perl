@@ -16,7 +16,7 @@ has workload => (
     required => 1,
 );
 
-has uniq => (
+has unique => (
     is      => 'rw',
     isa     => 'Str',
     lazy    => 1,
@@ -61,7 +61,7 @@ sub pack {
     my $self = shift;
 
     my $data = $self->function . "\0"
-             . $self->uniq . "\0"
+             . $self->unique . "\0"
              . $self->workload;
 
     "\0REQ" . pack('NN', 7, length($data)) . $data;
