@@ -2,6 +2,11 @@ package AnyEvent::Gearman::Client::Task;
 use Any::Moose;
 use AnyEvent::Gearman::Client::SharedObject 'obj';
 
+use constant {
+    SUBMIT_JOB => 7,
+    OPTION_REQ => 26,
+};
+
 extends any_moose('::Object'), 'Object::Event';
 
 has function => (
@@ -25,7 +30,7 @@ has unique => (
     },
 );
 
-has [qw/on_created on_data on_complete on_fail on_status on_warning on_exception/] => (
+has [qw/on_created on_data on_complete on_fail on_status on_warning/] => (
     is      => 'rw',
     isa     => 'CodeRef',
     default => sub { sub {} },
@@ -53,18 +58,23 @@ sub BUILD {
         on_fail      => $self->on_fail,
         on_status    => $self->on_status,
         on_warning   => $self->on_warning,
-        on_exception => $self->on_exception,
     );
 }
 
-sub pack {
+sub pack_req {
     my $self = shift;
 
     my $data = $self->function . "\0"
              . $self->unique . "\0"
              . $self->workload;
 
-    "\0REQ" . pack('NN', 7, length($data)) . $data;
+    "\0REQ" . pack('NN', SUBMIT_JOB, length($data)) . $data;
+}
+
+sub pack_option_req {
+    my ($self, $option) = @_;
+
+    "\0REQ" . pack('NN', OPTION_REQ, length($option)) . $option;
 }
 
 __PACKAGE__->meta->make_immutable;

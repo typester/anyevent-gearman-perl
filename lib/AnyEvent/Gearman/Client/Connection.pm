@@ -89,7 +89,6 @@ sub connect {
                 },
             );
             $self->handler( $handle );
-
             $_->() for map { $_->[0] } @{ $self->on_connect_callbacks };
         }
         else {
@@ -113,7 +112,7 @@ sub add_task {
     $self->add_on_ready(
         sub {
             push @{ $self->_need_handle }, $task;
-            $self->handler->push_write( $task->pack );
+            $self->handler->push_write( $task->pack_req );
         },
         $on_error,
     );
