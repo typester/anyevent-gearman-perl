@@ -3,7 +3,7 @@ use Any::Moose;
 
 our $VERSION = '0.01';
 
-use AnyEvent::Gearman::Client::Types;
+use AnyEvent::Gearman::Types;
 use AnyEvent::Gearman::Client::Task;
 use AnyEvent::Gearman::Client::Connection;
 
