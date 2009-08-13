@@ -1,10 +1,8 @@
 package AnyEvent::Gearman::Client;
 use Any::Moose;
 
-our $VERSION = '0.01';
-
 use AnyEvent::Gearman::Types;
-use AnyEvent::Gearman::Client::Task;
+use AnyEvent::Gearman::Task;
 use AnyEvent::Gearman::Client::Connection;
 
 has job_servers => (
@@ -19,7 +17,7 @@ no Any::Moose;
 sub add_task {
     my ($self, $function, $workload, %cb) = @_;
 
-    my $task = AnyEvent::Gearman::Client::Task->new( $function, $workload, %cb );
+    my $task = AnyEvent::Gearman::Task->new( $function, $workload, %cb );
 
     my $retry; ($retry = sub {
         my @js = grep { $_->alive } @{ $self->job_servers };

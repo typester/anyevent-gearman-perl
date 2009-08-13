@@ -1,4 +1,4 @@
-package AnyEvent::Gearman::Client::Task;
+package AnyEvent::Gearman::Task;
 use Any::Moose;
 use AnyEvent::Gearman::Client::SharedObject 'obj';
 
