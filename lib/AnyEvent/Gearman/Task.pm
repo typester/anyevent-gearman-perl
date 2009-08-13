@@ -1,11 +1,8 @@
 package AnyEvent::Gearman::Task;
 use Any::Moose;
-use AnyEvent::Gearman::Client::SharedObject 'obj';
 
-use constant {
-    SUBMIT_JOB => 7,
-    OPTION_REQ => 26,
-};
+use AnyEvent::Gearman::SharedObject 'obj';
+use AnyEvent::Gearman::Constants;
 
 extends any_moose('::Object'), 'Object::Event';
 
@@ -26,7 +23,7 @@ has unique => (
     isa     => 'Str',
     lazy    => 1,
     default => sub {
-        obj('ug')->create_str;
+        obj('UUID')->create_str;
     },
 );
 
