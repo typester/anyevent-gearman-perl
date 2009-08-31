@@ -74,4 +74,29 @@ sub pack_option_req {
     "\0REQ" . pack('NN', OPTION_REQ, length($option)) . $option;
 }
 
+sub complete {
+    my ($self, $result) = @_;
+    $self->event( on_complete => $result );
+}
+
+sub data {
+    my ($self, $data) = @_;
+    $self->event( on_data => $data );
+}
+
+sub fail {
+    my ($self) = @_;
+    $self->event('on_fail');
+}
+
+sub status {
+    my ($self, $numerator, $denominator) = @_;
+    $self->event( on_status => $numerator, $denominator );
+}
+
+sub warning {
+    my ($self, $warning) = @_;
+    $self->event( on_warning => $warning );
+}
+
 __PACKAGE__->meta->make_immutable;
