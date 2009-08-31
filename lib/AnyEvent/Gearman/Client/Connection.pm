@@ -1,5 +1,6 @@
 package AnyEvent::Gearman::Client::Connection;
 use Any::Moose;
+use Scalar::Util 'weaken';
 
 extends 'AnyEvent::Gearman::Connection';
 
@@ -15,31 +16,9 @@ sub add_task {
         },
         $on_error,
     );
-}
+    weaken($self);
 
-sub process_packet {
-    my $self = shift;
-
-    my $handle = $self->handler;
-
-    $handle->unshift_read( chunk => 4, sub { # \0RES
-        unless ($_[1] eq "\0RES") {
-            die qq[invalid packet: $_[1]"];
-        }
-
-        $handle->unshift_read( chunk => 8, sub {
-            my ($type, $len)   = unpack('NN', $_[1]);
-            my $packet_handler = $self->can("process_packet_$type");
-
-            unless ($packet_handler) {
-                # Ignore unimplement packet
-                $handle->unshift_read( chunk => $len, sub {} ) if $len;
-                return;
-            }
-
-            $packet_handler->( $self, $len );
-        });
-    });
+    return;
 }
 
 sub process_work {              # common handler for WORK_*
@@ -50,7 +29,7 @@ sub process_work {              # common handler for WORK_*
         my $job_handle = $_[1];
         $len -= length($job_handle) + 1;
 
-        $handle->unshift_read( chunk => $len, sub {
+        $_[0]->unshift_read( chunk => $len, sub {
             $cb->( $job_handle, $_[1] );
         });
     });
@@ -68,6 +47,7 @@ sub process_packet_8 {          # JOB_CREATED
         $self->_job_handles->{ $job_handle } = $task;
         $task->event( 'on_created' );
     });
+    weaken $self;
 }
 
 sub process_packet_12 {         # WORK_STATUS
@@ -78,18 +58,19 @@ sub process_packet_12 {         # WORK_STATUS
         my $job_handle = $_[1];
         $len -= length($_[1]) + 1;
 
-        $handle->unshift_read( line => "\0", sub {
+        $_[0]->unshift_read( line => "\0", sub {
             my $numerator = $_[1];
             $len -= length($_[1]) + 1;
 
-            $handle->unshift_read( chunk => $len, sub {
+            $_[0]->unshift_read( chunk => $len, sub {
                 my $denominator = $_[1];
 
                 my $task = $self->_job_handles->{ $job_handle } or return;
                 $task->event( on_status => $numerator, $denominator );
             });
         });
-     });
+    });
+    weaken $self;
 }
 
 sub process_packet_13 {         # WORK_COMPLETE
@@ -101,6 +82,7 @@ sub process_packet_13 {         # WORK_COMPLETE
         my $task = delete $self->_job_handles->{ $job_handle } or return;
         $task->event( on_complete => $data );
     };
+    weaken $self;
 
     goto \&process_work;
 }
@@ -114,6 +96,7 @@ sub process_packet_14 {         # WORK_FAIL
         my $task       = delete $self->_job_handles->{ $job_handle } or return;
         $task->event('on_fail');
     });
+    weaken $self;
 }
 
 sub process_packet_25 {         # WORK_EXCEPTION
@@ -124,6 +107,7 @@ sub process_packet_25 {         # WORK_EXCEPTION
         my $task = $self->_job_handles->{ $job_handle } or return;
         $task->event( on_exception => $data );
     };
+    Scalar::Util::weaken($self);
 
     goto \&process_work;
 }
@@ -137,6 +121,7 @@ sub process_packet_28 {         # WORK_DATA
         my $task = $self->_job_handles->{ $job_handle } or return;
         $task->event( on_data => $data );
     };
+    weaken $self;
 
     goto \&process_work;
 }
@@ -150,6 +135,7 @@ sub process_packet_29 {         # WORK_WARNING
 
         $task->event( on_warning => $data );
     };
+    weaken $self;
 
     goto \&process_work;
 }
