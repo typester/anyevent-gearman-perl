@@ -57,7 +57,7 @@ elsif ($child == 0) {
     exit;
 }
 else {
-    END { kill 9, $child }
+    END { kill 9, $child if $child }
 }
 
 run_tests;

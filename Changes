@@ -1,4 +1,8 @@
 Revision history for Perl extension AnyEvent::Gearman::Client
 
+0.01001 2009-09-02T18:05:37+09:00
+      - fixed test's stupid END block (miyagawa++)
+      - depends latest AnyEvent (tokuhirom++)
+
 0.01  2009-09-02T16:13:24+09:00
       - original version
