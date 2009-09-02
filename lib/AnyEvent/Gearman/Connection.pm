@@ -170,3 +170,43 @@ sub process_packet {
 }
 
 __PACKAGE__->meta->make_immutable;
+
+__END__
+
+=head1 NAME
+
+AnyEvent::Gearman::Connection - common base class to handle connection
+
+=head1 SEE ALSO
+
+L<AnyEvent::Gearman>, L<AnyEvent::Gearman::Client>, L<AnyEvent::Gearman::Worker>.
+
+=head1 METHODS
+
+=head2 connect
+
+=head2 connected
+
+=head2 add_on_ready
+
+=head2 mark_dead
+
+=head2 alive
+
+=head2 process_packet
+
+=head1 AUTHOR
+
+Daisuke Murase <typester@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2009 by KAYAC Inc.
+
+This program is free software; you can redistribute
+it and/or modify it under the same terms as Perl itself.
+
+The full text of the license can be found in the
+LICENSE file included with this module.
+
+=cut

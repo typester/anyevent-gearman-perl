@@ -4,6 +4,7 @@ use Scalar::Util 'weaken';
 require bytes;
 
 use AnyEvent::Gearman::Constants;
+use AnyEvent::Gearman::Job;
 
 extends 'AnyEvent::Gearman::Connection';
 
@@ -106,32 +107,32 @@ sub process_packet_11 {         # JOB_ASSIGN
             $_[0]->unshift_read( chunk => $len, sub {
                 my $workload = $_[1];
 
-                my $task = AnyEvent::Gearman::Task->new(
-                    $function, $workload,
+                my $job = AnyEvent::Gearman::Job->new(
+                    $function => $workload,
                     on_complete => sub {
-                        my ($task, $result) = @_;
+                        my ($job, $result) = @_;
                         $self->request(WORK_COMPLETE, "$job_handle\0$result");
                     },
                     on_data => sub {
-                        my ($task, $data) = @_;
+                        my ($job, $data) = @_;
                         $self->request(WORK_DATA, "$job_handle\0$data");
                     },
                     on_fail => sub {
-                        my ($task) = @_;
+                        my ($job) = @_;
                         $self->request(WORK_FAIL, $job_handle);
                     },
                     on_status => sub {
-                        my ($task, $numerator, $denominator) = @_;
+                        my ($job, $numerator, $denominator) = @_;
                         $self->request(
                             WORK_STATUS, "$job_handle\0$numerator\0$denominator"
                         );
                     },
                     on_warning => sub {
-                        my ($task, $warning) = @_;
+                        my ($job, $warning) = @_;
                         $self->request(WORK_WARNING, "$job_handle\0$warning");
                     },
                 );
-                $self->work( $task );
+                $self->work( $job );
             });
         });
     });
@@ -139,10 +140,50 @@ sub process_packet_11 {         # JOB_ASSIGN
 }
 
 sub work {
-    my ($self, $task) = @_;
+    my ($self, $job) = @_;
 
-    my $cb = $self->context->functions->{ $task->function } or return;
-    $cb->($task);
+    my $cb = $self->context->functions->{ $job->function } or return;
+    $cb->($job);
 }
 
 __PACKAGE__->meta->make_immutable;
+
+__END__
+
+=head1 NAME
+
+AnyEvent::Gearman::Worker::Connection - connection class for worker
+
+=head1 METHODS
+
+=head2 request
+
+=head2 register_function
+
+=head2 unregister_function
+
+=head2 can_do
+
+=head2 cant_do
+
+=head2 grab_job
+
+=head2 pre_sleep
+
+=head2 work
+
+=head1 AUTHOR
+
+Daisuke Murase <typester@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2009 by KAYAC Inc.
+
+This program is free software; you can redistribute
+it and/or modify it under the same terms as Perl itself.
+
+The full text of the license can be found in the
+LICENSE file included with this module.
+
+=cut

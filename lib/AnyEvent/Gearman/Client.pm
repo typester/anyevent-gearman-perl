@@ -52,36 +52,102 @@ __END__
 
 =head1 NAME
 
-AnyEvent::Gearman::Client - Module abstract (<= 44 characters) goes here
+AnyEvent::Gearman::Client - Gearman client for AnyEvent application
 
 =head1 SYNOPSIS
 
     use AnyEvent::Gearman::Client;
     
-    my $cv = AnyEvent->condvar;
-    
+    # create greaman client
     my $gearman = AnyEvent::Gearman::Client->new(
-        job_servers => ['127.0.0.1'],
+        job_servers => ['127.0.0.1', '192.168.0.1:123'],
     );
     
-    $gearman->add_task( 'reverse', 'Hello World!',
+    # start job
+    $gearman->add_task(
+        $function => $workload,
         on_complete => sub {
-            $cv->send( $_[1] );
+            my $res = $_[1];
         },
         on_fail => sub {
-            $cv->send;
+            # job failed
         },
     );
-    
-    my $result = $cv->recv;
 
 =head1 DESCRIPTION
 
-Stub documentation for this module was created by ExtUtils::ModuleMaker.
-It looks like the author of the extension was negligent enough
-to leave the stub unedited.
+This is Gearman client module for AnyEvent applications.
 
-Blah blah blah.
+=head1 SEE ALSO
+
+L<Gearman::Client::Async>, this module provides same functionality for L<Danga::Socket> applications.
+
+=head1 METHODS
+
+=head2 new(%options)
+
+Create gearman client object.
+
+    my $gearman = AnyEvent::Gearman::Client->new(
+        job_servers => ['127.0.0.1', '192.168.0.1:123'],
+    );
+
+Available options are:
+
+=over 4
+
+=item job_servers => 'ArrayRef',
+
+List of gearman servers. 'host:port' or just 'host' formats are allowed.
+In latter case, gearman default port 4730 will be used.
+
+You should set at least one job_server.
+
+=back
+
+=head2 add_task($function, $workload, %callbacks)
+
+Start new job and wait results in C<%callbacks>
+
+    $gearman->add_task(
+        $function => $workload,
+        on_complete => sub {
+            my $result = $_[1],
+        },
+        on_fail => sub {
+            # job failled
+        },
+    );
+
+C<$function> is a worker function name, and C<$workload> is a data that will be passed to worker.
+
+C<%callbacks> is set of callbacks called by job events. Available callbacks are:
+
+=over 4
+
+=item on_complete => $cb->($self, $result)
+
+Called when the job is completed. C<$result> is some results data which is set by C<< $job->complete($result) >> in worker.
+
+=item on_fail => $cb->($self, $reason)
+
+Called when the job is failed. C<$reason> is empty if its throwed by worker. I don't know why but gearman spec say so. Considering to use C<on_warning> below for some failing notify.
+
+=item on_warning => $cb->($self, $warning)
+
+Called when C<< $job->warning($warning) >> called in worker.
+
+=item on_data => $cb->($self, $data)
+
+Called when C<< $job->data($data) >> called in worker.
+
+=item on_status => $cb->($self, $numerator, $denominator)
+
+Called when C<< $job->status($numerator, $denominator) >> called in worker
+
+=back
+
+You should to set C<on_complete> and C<on_fail> at least.
 
 =head1 AUTHOR
 
