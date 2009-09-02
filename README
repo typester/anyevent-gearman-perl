@@ -1,11 +1,11 @@
-This is Perl module AnyEvent::Gearman::Client.
+This is Perl module AnyEvent::Gearman.
 
 INSTALLATION
 
-AnyEvent::Gearman::Client installation is straightforward. If your CPAN shell is set up,
+AnyEvent::Gearman installation is straightforward. If your CPAN shell is set up,
 you should just be able to do
 
-    % cpan AnyEvent::Gearman::Client
+    % cpan AnyEvent::Gearman
 
 Download it, unpack it, then build it as per the usual:
 
@@ -18,9 +18,9 @@ Then install it:
 
 DOCUMENTATION
 
-AnyEvent::Gearman::Client documentation is available as in POD. So you can do:
+AnyEvent::Gearman documentation is available as in POD. So you can do:
 
-    % perldoc AnyEvent::Gearman::Client
+    % perldoc AnyEvent::Gearman
 
 to read the documentation online with your favorite pager.
 

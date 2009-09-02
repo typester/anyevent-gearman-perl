@@ -1,5 +1,6 @@
 Changes
 inc/Module/Install.pm
+inc/Module/Install/AuthorTests.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
 inc/Module/Install/Fetch.pm
@@ -15,12 +16,27 @@ inc/Test/Base/Filter.pm
 inc/Test/Builder.pm
 inc/Test/Builder/Module.pm
 inc/Test/More.pm
+inc/Test/TCP.pm
+lib/AnyEvent/Gearman.pm
 lib/AnyEvent/Gearman/Client.pm
+lib/AnyEvent/Gearman/Client/Connection.pm
+lib/AnyEvent/Gearman/Connection.pm
+lib/AnyEvent/Gearman/Constants.pm
+lib/AnyEvent/Gearman/Job.pm
+lib/AnyEvent/Gearman/SharedObject.pm
+lib/AnyEvent/Gearman/Task.pm
+lib/AnyEvent/Gearman/Types.pm
+lib/AnyEvent/Gearman/Worker.pm
+lib/AnyEvent/Gearman/Worker/Connection.pm
 LICENSE
 Makefile.PL
 MANIFEST			This list of files
 META.yml
 README
 t/00_compile.t
-t/pod.t
-t/pod_coverage.t
+t/client_worker.t
+t/constants.t
+t/danga_worker.pl
+t/simple.t
+xt/pod.t
+xt/pod_coverage.t
