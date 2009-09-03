@@ -54,6 +54,8 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
+=for stopwords unregister
+
 =head1 NAME
 
 AnyEvent::Gearman::Worker - Gearman worker for AnyEvent application
@@ -118,7 +120,7 @@ C<$subref> is worker CodeRef that will be executed when the worker received a re
 NOTE: Unlike L<Gearman::Worker>, this module ignore C<$subrec>'s return value.
 So you should call either C<< $job->complete >> or C<< $job->fail >> at least.
 
-This is because this module stands L<AnyEvent>'s asynchronous way, and this way more fleible in AnyEvent world.
+This is because this module stands L<AnyEvent>'s asynchronous way, and this way more flexible in AnyEvent world.
 
 For example:
 
@@ -138,7 +140,7 @@ This is simplest and meaningless codes but you can write worker process with Any
 
 =head2 unregister_function( $function_name )
 
-Unregister worker function, notifing to server that this worker no longer handle C<$function_name>.
+Unregister worker function, notifying to server that this worker no longer handle C<$function_name>.
 
 =head1 AUTHOR
 

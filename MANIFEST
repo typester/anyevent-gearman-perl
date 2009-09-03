@@ -23,7 +23,6 @@ lib/AnyEvent/Gearman/Client/Connection.pm
 lib/AnyEvent/Gearman/Connection.pm
 lib/AnyEvent/Gearman/Constants.pm
 lib/AnyEvent/Gearman/Job.pm
-lib/AnyEvent/Gearman/SharedObject.pm
 lib/AnyEvent/Gearman/Task.pm
 lib/AnyEvent/Gearman/Types.pm
 lib/AnyEvent/Gearman/Worker.pm
@@ -40,3 +39,4 @@ t/danga_worker.pl
 t/simple.t
 xt/pod.t
 xt/pod_coverage.t
+xt/pod_spell.t

@@ -1,5 +1,9 @@
 Revision history for Perl extension AnyEvent::Gearman
 
+0.02  2009-09-03T18:25:40+09:00
+      - change task uuid default value to ''
+      - fix pod typos
+
 0.01002 2009-09-03T10:19:58+09:00
       - add a missing prereq
 

@@ -131,7 +131,7 @@ Called when the job is completed. C<$result> is some results data which is set b
 
 =item on_fail => $cb->($self, $reason)
 
-Called when the job is failed. C<$reason> is empty if its throwed by worker. I don't know why but gearman spec say so. Considering to use C<on_warning> below for some failing notify.
+Called when the job is failed. C<$reason> is empty if its threw by worker. I don't know why but gearman spec say so. Considering to use C<on_warning> below for some failing notify.
 
 =item on_warning => $cb->($self, $warning)
 

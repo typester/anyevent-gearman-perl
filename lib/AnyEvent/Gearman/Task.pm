@@ -1,7 +1,6 @@
 package AnyEvent::Gearman::Task;
 use Any::Moose;
 
-use AnyEvent::Gearman::SharedObject 'obj';
 use AnyEvent::Gearman::Constants;
 
 extends any_moose('::Object'), 'Object::Event';
@@ -21,10 +20,7 @@ has workload => (
 has unique => (
     is      => 'rw',
     isa     => 'Str',
-    lazy    => 1,
-    default => sub {
-        obj('UUID')->create_str;
-    },
+    default => '',
 );
 
 has [qw/on_created on_data on_complete on_fail on_status on_warning/] => (
