@@ -1,5 +1,8 @@
 Revision history for Perl extension AnyEvent::Gearman
 
+0.01002 2009-09-03T10:19:58+09:00
+      - add a missing prereq
+
 0.01001 2009-09-02T18:05:37+09:00
       - fixed test's stupid END block (miyagawa++)
       - depends latest AnyEvent (tokuhirom++)
