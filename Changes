@@ -1,5 +1,8 @@
 Revision history for Perl extension AnyEvent::Gearman
 
+0.03001 2009-09-07T12:06:50+09:00
+      - fix test worker perl path (Reported by Kentaro Kuribayashi)
+
 0.03  2009-09-07T10:46:26+09:00
       - remove isa constraints for 'Guard', it's not used when PP mode.
       - add sleep in testcases for waiting server available

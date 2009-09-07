@@ -17,4 +17,6 @@ tests('t/*.t');
 author_tests('xt');
 
 auto_include;
+auto_set_repository;
+
 WriteAll;

@@ -56,7 +56,7 @@ if (!defined $child) {
 }
 elsif ($child == 0) {
     my $server = Gearman::Server->new( port => $port );
-    $server->start_worker('t/danga_worker.pl -s 127.0.0.1:'.$port);
+    $server->start_worker("$^X t/danga_worker.pl -s 127.0.0.1:$port");
     Danga::Socket->EventLoop;
 }
 else {
