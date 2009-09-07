@@ -58,7 +58,7 @@ has _job_handles => (
 
 has _con_guard => (
     is  => 'rw',
-    isa => 'Guard',
+    isa => 'Object',
 );
 
 no Any::Moose;

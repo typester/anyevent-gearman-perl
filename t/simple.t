@@ -59,7 +59,10 @@ elsif ($child == 0) {
     $server->start_worker('t/danga_worker.pl -s 127.0.0.1:'.$port);
     Danga::Socket->EventLoop;
 }
+else {
+    END { kill 9, $child if $child }
+}
+
+sleep 1;
 
 run_tests;
-
-kill 9, $child;

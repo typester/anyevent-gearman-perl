@@ -60,5 +60,7 @@ else {
     END { kill 9, $child if $child }
 }
 
+sleep 1;
+
 run_tests;
 

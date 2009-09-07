@@ -1,5 +1,9 @@
 Revision history for Perl extension AnyEvent::Gearman
 
+0.03  2009-09-07T10:46:26+09:00
+      - remove isa constraints for 'Guard', it's not used when PP mode.
+      - add sleep in testcases for waiting server available
+
 0.02  2009-09-03T18:25:40+09:00
       - change task uuid default value to ''
       - fix pod typos
