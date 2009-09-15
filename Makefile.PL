@@ -9,7 +9,7 @@ requires 'Object::Container' => '0.03002';
 requires 'Data::UUID';
 
 test_requires 'Test::More';
-test_requires 'Test::TCP';
+test_requires 'Test::TCP' => '0.08';
 
 use_test_base;
 

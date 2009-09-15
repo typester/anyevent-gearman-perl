@@ -1,5 +1,8 @@
 Revision history for Perl extension AnyEvent::Gearman
 
+0.03002 2009-09-15T14:33:50+09:00
+      - depends latest Test::TCP
+
 0.03001 2009-09-07T12:06:50+09:00
       - fix test worker perl path (Reported by Kentaro Kuribayashi)
 
