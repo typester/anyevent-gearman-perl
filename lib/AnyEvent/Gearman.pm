@@ -12,13 +12,13 @@ use AnyEvent::Gearman::Worker;
 
 sub gearman_client {
     AnyEvent::Gearman::Client->new(
-        job_servers => \@_,
+        job_servers => [@_],
     );
 }
 
 sub gearman_worker {
     AnyEvent::Gearman::Worker->new(
-        job_servers => \@_,
+        job_servers => [@_],
     );
 }
 
