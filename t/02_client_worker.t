@@ -1,3 +1,7 @@
+#!perl
+
+use strict;
+use warnings;
 use Test::Base;
 use Test::TCP;
 use Test::Deep;
