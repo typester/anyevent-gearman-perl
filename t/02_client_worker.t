@@ -35,7 +35,7 @@ sub run_tests {
 
     for (1..2) {
 	      my $cv = AnyEvent->condvar;
-	      $client->add_task(
+	      my $task = $client->add_task(
 	          reverse => 'Hello!',
 	          on_complete => sub {
 	              $cv->send($_[1]);
@@ -43,7 +43,13 @@ sub run_tests {
 	          on_fail => sub {
 	              $cv->send('fail');
 	          },
+	          on_created => sub {
+	              my ($task) = @_;
+	              my $job_handle = $task->job_handle;
+	              ok($job_handle, "Got JOB_CREATED message, got job_handle '$job_handle'");
+	          }
 	      );
+	      ok(!$task->job_handle, 'No job_handle yet');
 
 	      is $cv->recv, reverse('Hello!'), 'reverse ok';
     }

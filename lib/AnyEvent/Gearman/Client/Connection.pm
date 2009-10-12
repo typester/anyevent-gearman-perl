@@ -44,6 +44,7 @@ sub process_packet_8 {          # JOB_CREATED
         my $job_handle = $_[1];
         my $task = shift @{ $self->_need_handle } or return;
 
+        $task->job_handle($job_handle);
         $self->_job_handles->{ $job_handle } = $task;
         $task->event( 'on_created' );
     });

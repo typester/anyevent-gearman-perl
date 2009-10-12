@@ -23,6 +23,12 @@ has unique => (
     default => '',
 );
 
+has job_handle => (
+    is      => 'rw',
+    isa     => 'Str',
+    default => '',
+);
+
 has [qw/on_created on_data on_complete on_fail on_status on_warning/] => (
     is      => 'rw',
     isa     => 'CodeRef',
