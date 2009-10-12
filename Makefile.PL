@@ -10,6 +10,7 @@ requires 'Data::UUID';
 
 test_requires 'Test::More' => '0.92';
 test_requires 'Test::Exception';
+test_requires 'Test::Deep';
 test_requires 'Test::Base';
 test_requires 'Test::TCP' => '0.08';
 

@@ -1,5 +1,6 @@
 use Test::Base;
 use Test::TCP;
+use Test::Deep;
 
 use AnyEvent::Gearman::Client;
 use AnyEvent::Gearman::Worker;
@@ -57,6 +58,31 @@ sub run_tests {
     ## Make sure context is sane
     $_->context && is($_->context, $worker) for @{$worker->job_servers};
     $_->context && is($_->context, $client) for @{$client->job_servers};
+
+    # Test bg jobs
+    my $cv = AnyEvent->condvar;
+    $worker->register_function( bg_done => sub {
+        my $job = shift;
+        my $work = $job->workload;
+        
+        $job->complete($work);
+        $cv->send("bg job done: $work");
+    });
+    
+    my %cbs;
+    $client->add_task_bg(
+        bg_done => 'pick me!',
+        
+        on_created  => sub { $cbs{on_created}++  },
+        on_data     => sub { $cbs{on_data}++     },
+        on_status   => sub { $cbs{on_status}++   },
+        on_warning  => sub { $cbs{on_warning}++  },
+        on_complete => sub { $cbs{on_complete}++ },
+        on_fail     => sub { $cbs{on_fail}++     },
+    );
+    
+    is $cv->recv, 'bg job done: pick me!';
+    cmp_deeply(\%cbs, { on_created => 1 }, 'proper set of callbacks executed');
 }
 
 my $child = fork;

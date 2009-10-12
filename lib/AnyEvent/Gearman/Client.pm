@@ -15,7 +15,19 @@ has job_servers => (
 no Any::Moose;
 
 sub add_task {
-    my ($self, $function, $workload, %cb) = @_;
+    my $self = shift;
+    
+    return $self->_add_task('', @_)
+}
+
+sub add_task_bg {
+    my $self = shift;
+    
+    return $self->_add_task('bg', @_)
+}
+
+sub _add_task {
+    my ($self, $type, $function, $workload, %cb) = @_;
 
     my $task = AnyEvent::Gearman::Task->new( $function, $workload, %cb );
 
@@ -40,6 +52,9 @@ sub add_task {
 
             # on error
             $retry,
+            
+            # task type
+            $type,
         );
     })->();
 
@@ -73,6 +88,12 @@ AnyEvent::Gearman::Client - Gearman client for AnyEvent application
             # job failed
         },
     );
+    
+    # start backgroun job
+    $gearman->add_task_bg(
+        $function => $workload,
+    );
+    
 
 =head1 DESCRIPTION
 
@@ -145,9 +166,29 @@ Called when C<< $job->data($data) >> called in worker.
 
 Called when C<< $job->status($numerator, $denominator) >> called in worker
 
+=item on_created => $cb->($self)
+
+Called when the servers reports that the task was created successfully.
+Updates the Task object with the server assigned C<job_handle>.
+
 =back
 
 You should to set C<on_complete> and C<on_fail> at least.
+
+
+=head2 add_task_bg($function, $workload, %callbacks)
+
+Starts a new backgroun job. The parameters are the same as
+L<add_task($function, $workload, %callbacks)|add_task()>, but the only
+callback that is called is C<on_created>.
+
+    $gearman->add_task_bg(
+        $function => $workload,
+        on_created => sub {
+            my ($task) = @_;
+        },
+    );
+
 
 =head1 AUTHOR
 

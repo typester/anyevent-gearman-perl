@@ -61,13 +61,14 @@ sub BUILD {
 }
 
 sub pack_req {
-    my $self = shift;
+    my ($self, $type) = @_;
+    $type = $type && $type eq 'bg'? SUBMIT_JOB_BG : SUBMIT_JOB;
 
     my $data = $self->function . "\0"
              . $self->unique . "\0"
              . $self->workload;
 
-    "\0REQ" . pack('NN', SUBMIT_JOB, length($data)) . $data;
+    "\0REQ" . pack('NN', $type, length($data)) . $data;
 }
 
 sub pack_option_req {

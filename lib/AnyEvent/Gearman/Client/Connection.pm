@@ -7,12 +7,12 @@ extends 'AnyEvent::Gearman::Connection';
 no Any::Moose;
 
 sub add_task {
-    my ($self, $task, $on_complete, $on_error) = @_;
+    my ($self, $task, $on_complete, $on_error, $type) = @_;
 
     $self->add_on_ready(
         sub {
             push @{ $self->_need_handle }, $task;
-            $self->handler->push_write( $task->pack_req );
+            $self->handler->push_write( $task->pack_req($type) );
         },
         $on_error,
     );
