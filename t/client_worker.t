@@ -45,6 +45,10 @@ sub run_tests {
     );
 
     is $cv->recv, reverse('Hello!'), 'reverse ok';
+
+    ## Make sure context is sane
+    $_->context && is($_->context, $worker) for @{$worker->job_servers};
+    $_->context && is($_->context, $client) for @{$client->job_servers};
 }
 
 my $child = fork;

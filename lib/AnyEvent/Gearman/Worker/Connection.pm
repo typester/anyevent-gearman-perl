@@ -8,12 +8,6 @@ use AnyEvent::Gearman::Job;
 
 extends 'AnyEvent::Gearman::Connection';
 
-has context => (
-    is       => 'rw',
-    isa      => 'AnyEvent::Gearman::Worker',
-    weak_ref => 1,
-);
-
 has grabbing => (
     is      => 'rw',
     isa     => 'Bool',
