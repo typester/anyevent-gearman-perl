@@ -106,6 +106,7 @@ sub process_packet_11 {         # JOB_ASSIGN
                     on_complete => sub {
                         my ($job, $result) = @_;
                         $self->request(WORK_COMPLETE, "$job_handle\0$result");
+                        $self->grab_job();
                     },
                     on_data => sub {
                         my ($job, $data) = @_;
@@ -114,6 +115,7 @@ sub process_packet_11 {         # JOB_ASSIGN
                     on_fail => sub {
                         my ($job) = @_;
                         $self->request(WORK_FAIL, $job_handle);
+                        $self->grab_job();
                     },
                     on_status => sub {
                         my ($job, $numerator, $denominator) = @_;

@@ -33,18 +33,20 @@ sub run_tests {
         $job->complete($res);
     });
 
-    my $cv = AnyEvent->condvar;
-    $client->add_task(
-        reverse => 'Hello!',
-        on_complete => sub {
-            $cv->send($_[1]);
-        },
-        on_fail => sub {
-            $cv->send('fail');
-        },
-    );
+    for (1..2) {
+	      my $cv = AnyEvent->condvar;
+	      $client->add_task(
+	          reverse => 'Hello!',
+	          on_complete => sub {
+	              $cv->send($_[1]);
+	          },
+	          on_fail => sub {
+	              $cv->send('fail');
+	          },
+	      );
 
-    is $cv->recv, reverse('Hello!'), 'reverse ok';
+	      is $cv->recv, reverse('Hello!'), 'reverse ok';
+    }
 
     ## Make sure context is sane
     $_->context && is($_->context, $worker) for @{$worker->job_servers};
