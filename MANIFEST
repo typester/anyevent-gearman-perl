@@ -34,10 +34,11 @@ MANIFEST			This list of files
 META.yml
 README
 t/00_compile.t
-t/client_worker.t
-t/constants.t
+t/01_api.t
+t/02_client_worker.t
+t/09_constants.t
 t/danga_worker.pl
-t/simple.t
+t/03_simple.t
 xt/pod.t
 xt/pod_coverage.t
 xt/pod_spell.t
