@@ -34,6 +34,8 @@ AnyEvent::Gearman::Types - some subtype definitions
 
 Daisuke Murase <typester@cpan.org>
 
+Pedro Melo <melo@cpan.org>
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (c) 2009 by KAYAC Inc.

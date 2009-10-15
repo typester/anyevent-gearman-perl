@@ -199,6 +199,8 @@ L<AnyEvent::Gearman>, L<AnyEvent::Gearman::Client>, L<AnyEvent::Gearman::Worker>
 
 Daisuke Murase <typester@cpan.org>
 
+Pedro Melo <melo@cpan.org>
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (c) 2009 by KAYAC Inc.
