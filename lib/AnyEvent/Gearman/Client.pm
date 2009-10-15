@@ -89,7 +89,7 @@ AnyEvent::Gearman::Client - Gearman client for AnyEvent application
         },
     );
     
-    # start backgroun job
+    # start background job
     $gearman->add_task_bg(
         $function => $workload,
     );
@@ -178,7 +178,7 @@ You should to set C<on_complete> and C<on_fail> at least.
 
 =head2 add_task_bg($function, $workload, %callbacks)
 
-Starts a new backgroun job. The parameters are the same as
+Starts a new background job. The parameters are the same as
 L<add_task($function, $workload, %callbacks)|add_task()>, but the only
 callback that is called is C<on_created>.
 
