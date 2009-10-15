@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use base 'Exporter';
 
-our $VERSION = '0.03002';
+our $VERSION = '0.04';
 
 our @EXPORT = qw/gearman_client gearman_worker/;
 

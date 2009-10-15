@@ -1,5 +1,15 @@
 Revision history for Perl extension AnyEvent::Gearman
 
+0.04  2009-10-15T10:23:42+09:00
+      - melo++ did several fixes listed below
+      - added the add_task_bg() API for background jobs;
+      - a couple of fixes here and there:
+      - the usage gearman_worker('127.0.0.1') or gearman_client('127.0.0.1')
+        was failing with "modification of read-only value message";
+      - Added missing dependencies: Test::Base and others. I wonder why you use Test::Base though, I don't think its maintained anymore, and the latest Test::More with the done_testing() API do most of what I liked on Test::Base;
+      - fixed a bug in Worker where he would not grab a new job after being done with the first one;
+      - a bit of cleanups in the test directory;
+
 0.03002 2009-09-15T14:33:50+09:00
       - depends latest Test::TCP
 

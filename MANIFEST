@@ -16,6 +16,8 @@ inc/Test/Base.pm
 inc/Test/Base/Filter.pm
 inc/Test/Builder.pm
 inc/Test/Builder/Module.pm
+inc/Test/Deep.pm
+inc/Test/Exception.pm
 inc/Test/More.pm
 inc/Test/TCP.pm
 lib/AnyEvent/Gearman.pm
@@ -36,9 +38,9 @@ README
 t/00_compile.t
 t/01_api.t
 t/02_client_worker.t
+t/03_simple.t
 t/09_constants.t
 t/danga_worker.pl
-t/03_simple.t
 xt/pod.t
 xt/pod_coverage.t
 xt/pod_spell.t
