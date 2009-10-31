@@ -23,7 +23,7 @@ has _port => (
 
 has context => (
     is       => 'rw',
-    isa      => 'AnyEvent::Gearman::Client | AnyEvent::Gearman::Worker',
+    isa      => 'Object',
     weak_ref => 1,
 );
 
