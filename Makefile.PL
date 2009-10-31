@@ -6,7 +6,6 @@ requires 'AnyEvent'          => '5.12';
 requires 'Any::Moose'        => '0.10';
 requires 'Object::Event'     => '1.0';
 requires 'Object::Container' => '0.03002';
-requires 'Data::UUID';
 
 test_requires 'Test::More' => '0.92';
 test_requires 'Test::Exception';
