@@ -2,24 +2,34 @@ package AnyEvent::Gearman::Types;
 use Any::Moose;
 use Any::Moose '::Util::TypeConstraints';
 
-subtype 'ArrayRef[AnyEvent::Gearman::Client::Connection]' => as 'ArrayRef';
+subtype 'AnyEvent::Gearman::Client::Connections'
+    => as 'ArrayRef[AnyEvent::Gearman::Client::Connection]';
 
-coerce 'ArrayRef[AnyEvent::Gearman::Client::Connection]'
-    => from 'ArrayRef[Str]' => via {
+subtype 'AnyEvent::Gearman::Client::StrConnections'
+    => as 'ArrayRef[Str]';
+
+coerce 'AnyEvent::Gearman::Client::Connections'
+    => from 'AnyEvent::Gearman::Client::StrConnections' => via {
         for my $con (@$_) {
             next if ref($con) and $con->isa('AnyEvent::Gearman::Client::Connection');
             $con = AnyEvent::Gearman::Client::Connection->new( hostspec => $con );
         }
+        $_;
     };
 
-subtype 'ArrayRef[AnyEvent::Gearman::Worker::Connection]' => as 'ArrayRef';
+subtype 'AnyEvent::Gearman::Worker::Connections'
+    => as 'ArrayRef[AnyEvent::Gearman::Worker::Connection]';
 
-coerce 'ArrayRef[AnyEvent::Gearman::Worker::Connection]'
-    => from 'ArrayRef[Str]' => via {
+subtype 'AnyEvent::Gearman::Worker::StrConnections'
+    => as 'ArrayRef[Str]';
+
+coerce 'AnyEvent::Gearman::Worker::Connections'
+    => from 'AnyEvent::Gearman::Worker::StrConnections' => via {
         for my $con (@$_) {
             next if ref($con) and $con->isa('AnyEvent::Gearman::Worker::Connection');
             $con = AnyEvent::Gearman::Worker::Connection->new( hostspec => $con );
         }
+        $_;
     };
 
 1;

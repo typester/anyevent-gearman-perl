@@ -7,7 +7,7 @@ use AnyEvent::Gearman::Client::Connection;
 
 has job_servers => (
     is       => 'rw',
-    isa      => 'ArrayRef[AnyEvent::Gearman::Client::Connection]',
+    isa      => 'AnyEvent::Gearman::Client::Connections',
     required => 1,
     coerce   => 1,
 );

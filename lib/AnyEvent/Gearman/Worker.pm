@@ -8,7 +8,7 @@ extends any_moose('::Object'), 'Object::Event';
 
 has job_servers => (
     is       => 'ro',
-    isa      => 'ArrayRef[AnyEvent::Gearman::Worker::Connection]',
+    isa      => 'AnyEvent::Gearman::Worker::Connections',
     required => 1,
     coerce   => 1,
 );
