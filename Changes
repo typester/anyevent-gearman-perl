@@ -1,5 +1,11 @@
 Revision history for Perl extension AnyEvent::Gearman
 
+0.05  2009-10-31T11:25:39+09:00
+      - run test both Mouse/Moose
+      - remove Data::UUID dependency its no longer necessary
+      - add melo to stopwords ;)
+      - fix wrong deep coercion (reported by miyagawa++)
+
 0.04  2009-10-15T10:23:42+09:00
       - melo++ did several fixes listed below
       - added the add_task_bg() API for background jobs;

@@ -10,6 +10,7 @@ inc/Module/Install/Metadata.pm
 inc/Module/Install/Repository.pm
 inc/Module/Install/TestBase.pm
 inc/Module/Install/Win32.pm
+inc/Module/Install/With.pm
 inc/Module/Install/WriteAll.pm
 inc/Spiffy.pm
 inc/Test/Base.pm
@@ -41,6 +42,7 @@ t/02_client_worker.t
 t/03_simple.t
 t/09_constants.t
 t/danga_worker.pl
+t/force-moose.pl
 xt/pod.t
 xt/pod_coverage.t
 xt/pod_spell.t
