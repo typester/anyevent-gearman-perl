@@ -28,8 +28,9 @@ has context => (
 );
 
 has handler => (
-    is  => 'rw',
-    isa => 'Maybe[AnyEvent::Handle]',
+    is      => 'rw',
+    isa     => 'Maybe[AnyEvent::Handle]',
+    clearer => 'clear_handler',
 );
 
 has on_connect_callbacks => (
@@ -95,6 +96,10 @@ sub connect {
                 fh       => $fh,
                 on_read  => sub { $self->process_packet },
                 on_error => sub {
+                    my @undone = @{ $self->_need_handle },
+                                 values %{ $self->_job_handles };
+                    $_->event('on_fail') for @undone;
+
                     $self->_need_handle([]);
                     $self->_job_handles({});
                     $self->mark_dead;
@@ -137,6 +142,7 @@ sub add_on_ready {
 sub mark_dead {
     my ($self) = @_;
     $self->dead_time( time + 10 );
+    $self->clear_handler;
 }
 
 sub alive {
