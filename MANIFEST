@@ -40,6 +40,7 @@ t/00_compile.t
 t/01_api.t
 t/02_client_worker.t
 t/03_simple.t
+t/04_reconnect.t
 t/09_constants.t
 t/danga_worker.pl
 t/force-moose.pl

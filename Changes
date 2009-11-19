@@ -1,5 +1,8 @@
 Revision history for Perl extension AnyEvent::Gearman
 
+0.06  2009-11-19T19:49:33+09:00
+      - return on_fail event when unexpected connection error
+
 0.05  2009-10-31T11:25:39+09:00
       - run test both Mouse/Moose
       - remove Data::UUID dependency its no longer necessary
