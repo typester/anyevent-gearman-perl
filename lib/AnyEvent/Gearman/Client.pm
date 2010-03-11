@@ -12,6 +12,12 @@ has job_servers => (
     coerce   => 1,
 );
 
+has prefix => (
+    is      => 'rw',
+    isa     => 'Str',
+    default => '',
+);
+
 no Any::Moose;
 
 sub add_task {
@@ -28,6 +34,9 @@ sub add_task_bg {
 
 sub _add_task {
     my ($self, $type, $function, $workload, %cb) = @_;
+
+    $function = $self->prefix . "\t" . $function
+        if $self->prefix;
 
     my $task = AnyEvent::Gearman::Task->new( $function, $workload, %cb );
 
@@ -123,6 +132,12 @@ List of gearman servers. 'host:port' or just 'host' formats are allowed.
 In latter case, gearman default port 4730 will be used.
 
 You should set at least one job_server.
+
+=item prefix => 'Str',
+
+Sets the namespace / prefix for the function names. This is useful for sharing job servers between different applications or different instances of the same application (different development sandboxes for example).
+
+The namespace is currently implemented as a simple tab separated concatentation of the prefix and the function name.
 
 =back
 

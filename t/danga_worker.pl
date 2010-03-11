@@ -3,11 +3,14 @@
 use strict;
 use Gearman::Worker;
 use Getopt::Long;
-my $opt_js;
-GetOptions('s=s' => \$opt_js);
+GetOptions(
+    \my %opt,
+    qw/servers=s prefix=s/,
+);
 
 my $worker = Gearman::Worker->new;
-$worker->job_servers(split(/,/, $opt_js));
+$worker->job_servers(split(/,/, $opt{servers}));
+$worker->prefix($opt{prefix}) if $opt{prefix};
 
 $worker->register_function("reverse" => sub {
     my $job = shift;
