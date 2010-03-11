@@ -74,6 +74,8 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
+=for stopwords Str namespace
+
 =head1 NAME
 
 AnyEvent::Gearman::Client - Gearman client for AnyEvent application
@@ -137,7 +139,7 @@ You should set at least one job_server.
 
 Sets the namespace / prefix for the function names. This is useful for sharing job servers between different applications or different instances of the same application (different development sandboxes for example).
 
-The namespace is currently implemented as a simple tab separated concatentation of the prefix and the function name.
+The namespace is currently implemented as a simple tab separated concatenation of the prefix and the function name.
 
 =back
 
