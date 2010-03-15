@@ -117,7 +117,7 @@ C<$function_name> is function name string to register.
 
 C<$subref> is worker CodeRef that will be executed when the worker received a request for this function. And it will be passed a L<AnyEvent::Gearman::Job> object representing the job that has been received by the worker.
 
-NOTE: Unlike L<Gearman::Worker>, this module ignore C<$subrec>'s return value.
+NOTE: Unlike L<Gearman::Worker>, this module ignore C<$subref>'s return value.
 So you should call either C<< $job->complete >> or C<< $job->fail >> at least.
 
 This is because this module stands L<AnyEvent>'s asynchronous way, and this way more flexible in AnyEvent world.
