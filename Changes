@@ -1,5 +1,8 @@
 Revision history for Perl extension AnyEvent::Gearman
 
+0.08  2010-03-15T10:06:54+09:00
+      - fixed a typo at documentation (reported by clkao++)
+
 0.07  2010-03-11T12:04:42+09:00
       - added prefix support on AnyEvent::Gearman::Client
 
