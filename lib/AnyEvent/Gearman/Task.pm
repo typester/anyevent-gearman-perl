@@ -3,6 +3,8 @@ use Any::Moose;
 
 use AnyEvent::Gearman::Constants;
 
+BEGIN { do { eval q[use MouseX::Foreign; 1] or die $@ } if any_moose eq 'Mouse' }
+
 extends any_moose('::Object'), 'Object::Event';
 
 has function => (

@@ -3,7 +3,9 @@ name 'AnyEvent-Gearman';
 all_from 'lib/AnyEvent/Gearman.pm';
 
 requires 'AnyEvent'          => '5.12';
-requires 'Any::Moose'        => '0.10';
+requires 'Any::Moose'        => '0.13';
+requires 'Mouse'             => '0.80';
+requires 'MouseX::Foreign';
 requires 'Object::Event'     => '1.0';
 requires 'Object::Container' => '0.03002';
 

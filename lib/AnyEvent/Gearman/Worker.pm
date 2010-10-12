@@ -4,6 +4,8 @@ use Any::Moose;
 use AnyEvent::Gearman::Types;
 use AnyEvent::Gearman::Worker::Connection;
 
+BEGIN { do { eval q[use MouseX::Foreign; 1] or die $@ } if any_moose eq 'Mouse' }
+
 extends any_moose('::Object'), 'Object::Event';
 
 has job_servers => (
