@@ -13,6 +13,7 @@ sub add_task {
         sub {
             push @{ $self->_need_handle }, $task;
             $self->handler->push_write( $task->pack_req($type) );
+            $on_complete->();
         },
         $on_error,
     );
